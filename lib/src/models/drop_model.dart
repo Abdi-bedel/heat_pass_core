@@ -1,48 +1,51 @@
+// lib/src/models/drop_model.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'enums.dart';
 
 part 'drop_model.freezed.dart';
 part 'drop_model.g.dart';
 
-/// Shared Drop data model.
-/// JSON keys are assumed to match DB column names.
+/// Aligns with RPC/view rows:
+/// id, partner_id, title, description, type, claim_type, code, link,
+/// stock, event_time, end_time, image_url, is_public, status,
+/// partner_name, partner_logo_url
 @freezed
 class Drop with _$Drop {
   const factory Drop({
+    // IDs
     required String id,
-    required String partnerId,
+    @JsonKey(name: 'partner_id') required String partnerId,
+
+    // Basic
     required String title,
     String? description,
 
-    /// discount | giveaway | event
-    required DropType type,
-
-    /// code | link | rsvp
+    // Enums (tolerate new/unknown values)
+    @JsonKey(unknownEnumValue: DropType.unknown) required DropType type,
+    @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
     required ClaimType claimType,
 
-    /// Optional code to reveal for claimType=code
+    // Claim-specific
     String? code,
-
-    /// Optional link for claimType=link
     String? link,
 
-    /// Remaining stock; implementations should keep this authoritative
-    required int stock,
+    // Optional numeric (discounts may have null = unlimited)
+    int? stock,
 
-    /// Start time of event or availability
-    required DateTime eventTime,
+    // Times
+    @JsonKey(name: 'event_time') required DateTime eventTime,
+    @JsonKey(name: 'end_time') DateTime? endTime,
 
-    /// Optional end time
-    DateTime? endTime,
+    // Media
+    @JsonKey(name: 'image_url') String? imageUrl,
 
-    /// Poster / logo / artwork
-    String? imageUrl,
+    // Flags / status (DB uses string "active")
+    @JsonKey(name: 'is_public') @Default(false) bool isPublic,
+    String? status,
 
-    /// Whether visible to non-members
-    @Default(false) bool isPublic,
-
-    /// UI helper status
-    @Default(DropStatus.upcoming) DropStatus status,
+    // Partner info
+    @JsonKey(name: 'partner_name') String? partnerName,
+    @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl,
   }) = _Drop;
 
   factory Drop.fromJson(Map<String, dynamic> json) => _$DropFromJson(json);
