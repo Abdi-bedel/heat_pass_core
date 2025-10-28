@@ -1,10 +1,18 @@
 /// Core enums used across HeatPass apps.
-/// Keep names stable to avoid breaking JSON mapping relying on enum.name.
+/// Keep JSON values explicit so we don't rely on enum.name.
 import 'package:json_annotation/json_annotation.dart';
 
-enum DropType { event, giveaway, discount, unknown }
+enum DropType {
+  @JsonValue('event')
+  event,
+  @JsonValue('giveaway')
+  giveaway,
+  @JsonValue('discount')
+  discount,
+  unknown,
+}
 
-/// Optional status for UI logic (e.g., grey out ended drops)
+/// Optional status for UI logic (local only – not from JSON)
 enum DropStatus { upcoming, live, ended }
 
 enum ClaimType {
