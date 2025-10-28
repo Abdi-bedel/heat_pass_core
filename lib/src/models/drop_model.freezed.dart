@@ -26,7 +26,7 @@ mixin _$Drop {
   String get partnerId => throw _privateConstructorUsedError; // Basic
   String get title => throw _privateConstructorUsedError;
   String? get description =>
-      throw _privateConstructorUsedError; // Enums (tolerate new/unknown values)
+      throw _privateConstructorUsedError; // Enums (tolerate unexpected values)
   @JsonKey(unknownEnumValue: DropType.unknown)
   DropType get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
@@ -34,18 +34,18 @@ mixin _$Drop {
       throw _privateConstructorUsedError; // Claim-specific
   String? get code => throw _privateConstructorUsedError;
   String? get link =>
-      throw _privateConstructorUsedError; // Optional numeric (discounts may have null = unlimited)
-  int? get stock => throw _privateConstructorUsedError; // Times
+      throw _privateConstructorUsedError; // Optional numeric (null = unlimited/unspecified)
+  int? get stock => throw _privateConstructorUsedError; // Timing
   @JsonKey(name: 'event_time')
   DateTime get eventTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'end_time')
   DateTime? get endTime => throw _privateConstructorUsedError; // Media
   @JsonKey(name: 'image_url')
-  String? get imageUrl =>
-      throw _privateConstructorUsedError; // Flags / status (DB uses string "active")
+  String? get imageUrl => throw _privateConstructorUsedError; // Flags / status
   @JsonKey(name: 'is_public')
   bool get isPublic => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError; // Partner info
+  String? get status =>
+      throw _privateConstructorUsedError; // Partner info (view-only; don't send on base-table inserts)
   @JsonKey(name: 'partner_name')
   String? get partnerName => throw _privateConstructorUsedError;
   @JsonKey(name: 'partner_logo_url')
@@ -312,7 +312,8 @@ class __$$DropImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$DropImpl implements _Drop {
   const _$DropImpl(
       {required this.id,
@@ -347,7 +348,7 @@ class _$DropImpl implements _Drop {
   final String title;
   @override
   final String? description;
-// Enums (tolerate new/unknown values)
+// Enums (tolerate unexpected values)
   @override
   @JsonKey(unknownEnumValue: DropType.unknown)
   final DropType type;
@@ -359,10 +360,10 @@ class _$DropImpl implements _Drop {
   final String? code;
   @override
   final String? link;
-// Optional numeric (discounts may have null = unlimited)
+// Optional numeric (null = unlimited/unspecified)
   @override
   final int? stock;
-// Times
+// Timing
   @override
   @JsonKey(name: 'event_time')
   final DateTime eventTime;
@@ -373,13 +374,13 @@ class _$DropImpl implements _Drop {
   @override
   @JsonKey(name: 'image_url')
   final String? imageUrl;
-// Flags / status (DB uses string "active")
+// Flags / status
   @override
   @JsonKey(name: 'is_public')
   final bool isPublic;
   @override
   final String? status;
-// Partner info
+// Partner info (view-only; don't send on base-table inserts)
   @override
   @JsonKey(name: 'partner_name')
   final String? partnerName;
@@ -492,7 +493,7 @@ abstract class _Drop implements Drop {
   @override
   String get title;
   @override
-  String? get description; // Enums (tolerate new/unknown values)
+  String? get description; // Enums (tolerate unexpected values)
   @override
   @JsonKey(unknownEnumValue: DropType.unknown)
   DropType get type;
@@ -502,9 +503,9 @@ abstract class _Drop implements Drop {
   @override
   String? get code;
   @override
-  String? get link; // Optional numeric (discounts may have null = unlimited)
+  String? get link; // Optional numeric (null = unlimited/unspecified)
   @override
-  int? get stock; // Times
+  int? get stock; // Timing
   @override
   @JsonKey(name: 'event_time')
   DateTime get eventTime;
@@ -513,12 +514,13 @@ abstract class _Drop implements Drop {
   DateTime? get endTime; // Media
   @override
   @JsonKey(name: 'image_url')
-  String? get imageUrl; // Flags / status (DB uses string "active")
+  String? get imageUrl; // Flags / status
   @override
   @JsonKey(name: 'is_public')
   bool get isPublic;
   @override
-  String? get status; // Partner info
+  String?
+      get status; // Partner info (view-only; don't send on base-table inserts)
   @override
   @JsonKey(name: 'partner_name')
   String? get partnerName;
