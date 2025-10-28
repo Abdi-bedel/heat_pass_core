@@ -25,7 +25,8 @@ mixin _$Drop {
   @JsonKey(name: 'partner_id')
   String get partnerId => throw _privateConstructorUsedError; // Basic
   String get title => throw _privateConstructorUsedError;
-  String? get description =>
+  String? get description => throw _privateConstructorUsedError;
+  String? get location =>
       throw _privateConstructorUsedError; // Enums (tolerate unexpected values)
   @JsonKey(unknownEnumValue: DropType.unknown)
   DropType get type => throw _privateConstructorUsedError;
@@ -49,7 +50,28 @@ mixin _$Drop {
   @JsonKey(name: 'partner_name')
   String? get partnerName => throw _privateConstructorUsedError;
   @JsonKey(name: 'partner_logo_url')
-  String? get partnerLogoUrl => throw _privateConstructorUsedError;
+  String? get partnerLogoUrl =>
+      throw _privateConstructorUsedError; // NEW FIELDS for enhanced UI features
+// Multiple partners support for collaborations
+  List<String>? get partners =>
+      throw _privateConstructorUsedError; // ['TDS Co.', 'NetworkHub', 'StartupMelb']
+// Visibility control for member tiers
+  @JsonKey(unknownEnumValue: DropVisibility.public)
+  DropVisibility get visibility =>
+      throw _privateConstructorUsedError; // Tags for additional metadata and filtering
+  List<String> get tags =>
+      throw _privateConstructorUsedError; // ['Founder-Only', 'Only 5 Left', 'VIP']
+// Member access control
+  @JsonKey(name: 'member_only')
+  bool get memberOnly =>
+      throw _privateConstructorUsedError; // UI state (not from backend - managed locally)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get claimed =>
+      throw _privateConstructorUsedError; // Emoji representation for visual appeal
+  String get emoji =>
+      throw _privateConstructorUsedError; // Remaining stock display text (computed from stock)
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? get stockText => throw _privateConstructorUsedError;
 
   /// Serializes this Drop to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,6 +92,7 @@ abstract class $DropCopyWith<$Res> {
       @JsonKey(name: 'partner_id') String partnerId,
       String title,
       String? description,
+      String? location,
       @JsonKey(unknownEnumValue: DropType.unknown) DropType type,
       @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
       ClaimType claimType,
@@ -82,7 +105,16 @@ abstract class $DropCopyWith<$Res> {
       @JsonKey(name: 'is_public') bool isPublic,
       String? status,
       @JsonKey(name: 'partner_name') String? partnerName,
-      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl});
+      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl,
+      List<String>? partners,
+      @JsonKey(unknownEnumValue: DropVisibility.public)
+      DropVisibility visibility,
+      List<String> tags,
+      @JsonKey(name: 'member_only') bool memberOnly,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool claimed,
+      String emoji,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      String? stockText});
 }
 
 /// @nodoc
@@ -104,6 +136,7 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
     Object? partnerId = null,
     Object? title = null,
     Object? description = freezed,
+    Object? location = freezed,
     Object? type = null,
     Object? claimType = null,
     Object? code = freezed,
@@ -116,6 +149,13 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
     Object? status = freezed,
     Object? partnerName = freezed,
     Object? partnerLogoUrl = freezed,
+    Object? partners = freezed,
+    Object? visibility = null,
+    Object? tags = null,
+    Object? memberOnly = null,
+    Object? claimed = null,
+    Object? emoji = null,
+    Object? stockText = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -134,6 +174,10 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -182,6 +226,34 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
           ? _value.partnerLogoUrl
           : partnerLogoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      partners: freezed == partners
+          ? _value.partners
+          : partners // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      visibility: null == visibility
+          ? _value.visibility
+          : visibility // ignore: cast_nullable_to_non_nullable
+              as DropVisibility,
+      tags: null == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      memberOnly: null == memberOnly
+          ? _value.memberOnly
+          : memberOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      claimed: null == claimed
+          ? _value.claimed
+          : claimed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      stockText: freezed == stockText
+          ? _value.stockText
+          : stockText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -198,6 +270,7 @@ abstract class _$$DropImplCopyWith<$Res> implements $DropCopyWith<$Res> {
       @JsonKey(name: 'partner_id') String partnerId,
       String title,
       String? description,
+      String? location,
       @JsonKey(unknownEnumValue: DropType.unknown) DropType type,
       @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
       ClaimType claimType,
@@ -210,7 +283,16 @@ abstract class _$$DropImplCopyWith<$Res> implements $DropCopyWith<$Res> {
       @JsonKey(name: 'is_public') bool isPublic,
       String? status,
       @JsonKey(name: 'partner_name') String? partnerName,
-      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl});
+      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl,
+      List<String>? partners,
+      @JsonKey(unknownEnumValue: DropVisibility.public)
+      DropVisibility visibility,
+      List<String> tags,
+      @JsonKey(name: 'member_only') bool memberOnly,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool claimed,
+      String emoji,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      String? stockText});
 }
 
 /// @nodoc
@@ -229,6 +311,7 @@ class __$$DropImplCopyWithImpl<$Res>
     Object? partnerId = null,
     Object? title = null,
     Object? description = freezed,
+    Object? location = freezed,
     Object? type = null,
     Object? claimType = null,
     Object? code = freezed,
@@ -241,6 +324,13 @@ class __$$DropImplCopyWithImpl<$Res>
     Object? status = freezed,
     Object? partnerName = freezed,
     Object? partnerLogoUrl = freezed,
+    Object? partners = freezed,
+    Object? visibility = null,
+    Object? tags = null,
+    Object? memberOnly = null,
+    Object? claimed = null,
+    Object? emoji = null,
+    Object? stockText = freezed,
   }) {
     return _then(_$DropImpl(
       id: null == id
@@ -258,6 +348,10 @@ class __$$DropImplCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String?,
       type: null == type
           ? _value.type
@@ -307,6 +401,34 @@ class __$$DropImplCopyWithImpl<$Res>
           ? _value.partnerLogoUrl
           : partnerLogoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      partners: freezed == partners
+          ? _value._partners
+          : partners // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      visibility: null == visibility
+          ? _value.visibility
+          : visibility // ignore: cast_nullable_to_non_nullable
+              as DropVisibility,
+      tags: null == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      memberOnly: null == memberOnly
+          ? _value.memberOnly
+          : memberOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      claimed: null == claimed
+          ? _value.claimed
+          : claimed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      stockText: freezed == stockText
+          ? _value.stockText
+          : stockText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -314,12 +436,13 @@ class __$$DropImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$DropImpl implements _Drop {
+class _$DropImpl extends _Drop {
   const _$DropImpl(
       {required this.id,
       @JsonKey(name: 'partner_id') required this.partnerId,
       required this.title,
       this.description,
+      this.location,
       @JsonKey(unknownEnumValue: DropType.unknown) required this.type,
       @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
       required this.claimType,
@@ -332,7 +455,19 @@ class _$DropImpl implements _Drop {
       @JsonKey(name: 'is_public') this.isPublic = false,
       this.status,
       @JsonKey(name: 'partner_name') this.partnerName,
-      @JsonKey(name: 'partner_logo_url') this.partnerLogoUrl});
+      @JsonKey(name: 'partner_logo_url') this.partnerLogoUrl,
+      final List<String>? partners,
+      @JsonKey(unknownEnumValue: DropVisibility.public)
+      this.visibility = DropVisibility.public,
+      final List<String> tags = const <String>[],
+      @JsonKey(name: 'member_only') this.memberOnly = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.claimed = false,
+      this.emoji = '🔥',
+      @JsonKey(includeFromJson: false, includeToJson: false) this.stockText})
+      : _partners = partners,
+        _tags = tags,
+        super._();
 
   factory _$DropImpl.fromJson(Map<String, dynamic> json) =>
       _$$DropImplFromJson(json);
@@ -348,6 +483,8 @@ class _$DropImpl implements _Drop {
   final String title;
   @override
   final String? description;
+  @override
+  final String? location;
 // Enums (tolerate unexpected values)
   @override
   @JsonKey(unknownEnumValue: DropType.unknown)
@@ -387,10 +524,57 @@ class _$DropImpl implements _Drop {
   @override
   @JsonKey(name: 'partner_logo_url')
   final String? partnerLogoUrl;
+// NEW FIELDS for enhanced UI features
+// Multiple partners support for collaborations
+  final List<String>? _partners;
+// NEW FIELDS for enhanced UI features
+// Multiple partners support for collaborations
+  @override
+  List<String>? get partners {
+    final value = _partners;
+    if (value == null) return null;
+    if (_partners is EqualUnmodifiableListView) return _partners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+// ['TDS Co.', 'NetworkHub', 'StartupMelb']
+// Visibility control for member tiers
+  @override
+  @JsonKey(unknownEnumValue: DropVisibility.public)
+  final DropVisibility visibility;
+// Tags for additional metadata and filtering
+  final List<String> _tags;
+// Tags for additional metadata and filtering
+  @override
+  @JsonKey()
+  List<String> get tags {
+    if (_tags is EqualUnmodifiableListView) return _tags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tags);
+  }
+
+// ['Founder-Only', 'Only 5 Left', 'VIP']
+// Member access control
+  @override
+  @JsonKey(name: 'member_only')
+  final bool memberOnly;
+// UI state (not from backend - managed locally)
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool claimed;
+// Emoji representation for visual appeal
+  @override
+  @JsonKey()
+  final String emoji;
+// Remaining stock display text (computed from stock)
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final String? stockText;
 
   @override
   String toString() {
-    return 'Drop(id: $id, partnerId: $partnerId, title: $title, description: $description, type: $type, claimType: $claimType, code: $code, link: $link, stock: $stock, eventTime: $eventTime, endTime: $endTime, imageUrl: $imageUrl, isPublic: $isPublic, status: $status, partnerName: $partnerName, partnerLogoUrl: $partnerLogoUrl)';
+    return 'Drop(id: $id, partnerId: $partnerId, title: $title, description: $description, location: $location, type: $type, claimType: $claimType, code: $code, link: $link, stock: $stock, eventTime: $eventTime, endTime: $endTime, imageUrl: $imageUrl, isPublic: $isPublic, status: $status, partnerName: $partnerName, partnerLogoUrl: $partnerLogoUrl, partners: $partners, visibility: $visibility, tags: $tags, memberOnly: $memberOnly, claimed: $claimed, emoji: $emoji, stockText: $stockText)';
   }
 
   @override
@@ -404,6 +588,8 @@ class _$DropImpl implements _Drop {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.claimType, claimType) ||
                 other.claimType == claimType) &&
@@ -421,29 +607,48 @@ class _$DropImpl implements _Drop {
             (identical(other.partnerName, partnerName) ||
                 other.partnerName == partnerName) &&
             (identical(other.partnerLogoUrl, partnerLogoUrl) ||
-                other.partnerLogoUrl == partnerLogoUrl));
+                other.partnerLogoUrl == partnerLogoUrl) &&
+            const DeepCollectionEquality().equals(other._partners, _partners) &&
+            (identical(other.visibility, visibility) ||
+                other.visibility == visibility) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.memberOnly, memberOnly) ||
+                other.memberOnly == memberOnly) &&
+            (identical(other.claimed, claimed) || other.claimed == claimed) &&
+            (identical(other.emoji, emoji) || other.emoji == emoji) &&
+            (identical(other.stockText, stockText) ||
+                other.stockText == stockText));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      partnerId,
-      title,
-      description,
-      type,
-      claimType,
-      code,
-      link,
-      stock,
-      eventTime,
-      endTime,
-      imageUrl,
-      isPublic,
-      status,
-      partnerName,
-      partnerLogoUrl);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        partnerId,
+        title,
+        description,
+        location,
+        type,
+        claimType,
+        code,
+        link,
+        stock,
+        eventTime,
+        endTime,
+        imageUrl,
+        isPublic,
+        status,
+        partnerName,
+        partnerLogoUrl,
+        const DeepCollectionEquality().hash(_partners),
+        visibility,
+        const DeepCollectionEquality().hash(_tags),
+        memberOnly,
+        claimed,
+        emoji,
+        stockText
+      ]);
 
   /// Create a copy of Drop
   /// with the given fields replaced by the non-null parameter values.
@@ -461,12 +666,13 @@ class _$DropImpl implements _Drop {
   }
 }
 
-abstract class _Drop implements Drop {
+abstract class _Drop extends Drop {
   const factory _Drop(
       {required final String id,
       @JsonKey(name: 'partner_id') required final String partnerId,
       required final String title,
       final String? description,
+      final String? location,
       @JsonKey(unknownEnumValue: DropType.unknown) required final DropType type,
       @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
       required final ClaimType claimType,
@@ -479,8 +685,17 @@ abstract class _Drop implements Drop {
       @JsonKey(name: 'is_public') final bool isPublic,
       final String? status,
       @JsonKey(name: 'partner_name') final String? partnerName,
-      @JsonKey(name: 'partner_logo_url')
-      final String? partnerLogoUrl}) = _$DropImpl;
+      @JsonKey(name: 'partner_logo_url') final String? partnerLogoUrl,
+      final List<String>? partners,
+      @JsonKey(unknownEnumValue: DropVisibility.public)
+      final DropVisibility visibility,
+      final List<String> tags,
+      @JsonKey(name: 'member_only') final bool memberOnly,
+      @JsonKey(includeFromJson: false, includeToJson: false) final bool claimed,
+      final String emoji,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final String? stockText}) = _$DropImpl;
+  const _Drop._() : super._();
 
   factory _Drop.fromJson(Map<String, dynamic> json) = _$DropImpl.fromJson;
 
@@ -493,7 +708,9 @@ abstract class _Drop implements Drop {
   @override
   String get title;
   @override
-  String? get description; // Enums (tolerate unexpected values)
+  String? get description;
+  @override
+  String? get location; // Enums (tolerate unexpected values)
   @override
   @JsonKey(unknownEnumValue: DropType.unknown)
   DropType get type;
@@ -526,7 +743,28 @@ abstract class _Drop implements Drop {
   String? get partnerName;
   @override
   @JsonKey(name: 'partner_logo_url')
-  String? get partnerLogoUrl;
+  String? get partnerLogoUrl; // NEW FIELDS for enhanced UI features
+// Multiple partners support for collaborations
+  @override
+  List<String>? get partners; // ['TDS Co.', 'NetworkHub', 'StartupMelb']
+// Visibility control for member tiers
+  @override
+  @JsonKey(unknownEnumValue: DropVisibility.public)
+  DropVisibility get visibility; // Tags for additional metadata and filtering
+  @override
+  List<String> get tags; // ['Founder-Only', 'Only 5 Left', 'VIP']
+// Member access control
+  @override
+  @JsonKey(name: 'member_only')
+  bool get memberOnly; // UI state (not from backend - managed locally)
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get claimed; // Emoji representation for visual appeal
+  @override
+  String get emoji; // Remaining stock display text (computed from stock)
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? get stockText;
 
   /// Create a copy of Drop
   /// with the given fields replaced by the non-null parameter values.

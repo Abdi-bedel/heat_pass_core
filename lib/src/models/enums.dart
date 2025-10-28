@@ -12,7 +12,7 @@ enum DropType {
   unknown,
 }
 
-/// Optional status for UI logic (local only – not from JSON)
+/// Optional status for UI logic (local only — not from JSON)
 enum DropStatus { upcoming, live, ended }
 
 enum ClaimType {
@@ -25,4 +25,14 @@ enum ClaimType {
   @JsonValue('qr')
   qr,
   unknown,
+}
+
+/// Visibility levels for member tier access control
+enum DropVisibility {
+  @JsonValue('public')
+  public, // Visible to everyone
+  @JsonValue('teaser')
+  teaser, // Shown as blurred teaser to non-members
+  @JsonValue('hidden')
+  hidden, // Completely hidden from non-members
 }

@@ -11,6 +11,7 @@ _$DropImpl _$$DropImplFromJson(Map<String, dynamic> json) => _$DropImpl(
       partnerId: json['partner_id'] as String,
       title: json['title'] as String,
       description: json['description'] as String?,
+      location: json['location'] as String?,
       type: $enumDecode(_$DropTypeEnumMap, json['type'],
           unknownValue: DropType.unknown),
       claimType: $enumDecode(_$ClaimTypeEnumMap, json['claim_type'],
@@ -27,6 +28,18 @@ _$DropImpl _$$DropImplFromJson(Map<String, dynamic> json) => _$DropImpl(
       status: json['status'] as String?,
       partnerName: json['partner_name'] as String?,
       partnerLogoUrl: json['partner_logo_url'] as String?,
+      partners: (json['partners'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      visibility: $enumDecodeNullable(
+              _$DropVisibilityEnumMap, json['visibility'],
+              unknownValue: DropVisibility.public) ??
+          DropVisibility.public,
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const <String>[],
+      memberOnly: json['member_only'] as bool? ?? false,
+      emoji: json['emoji'] as String? ?? '🔥',
     );
 
 Map<String, dynamic> _$$DropImplToJson(_$DropImpl instance) =>
@@ -35,6 +48,7 @@ Map<String, dynamic> _$$DropImplToJson(_$DropImpl instance) =>
       'partner_id': instance.partnerId,
       'title': instance.title,
       if (instance.description case final value?) 'description': value,
+      if (instance.location case final value?) 'location': value,
       'type': _$DropTypeEnumMap[instance.type]!,
       'claim_type': _$ClaimTypeEnumMap[instance.claimType]!,
       if (instance.code case final value?) 'code': value,
@@ -48,6 +62,11 @@ Map<String, dynamic> _$$DropImplToJson(_$DropImpl instance) =>
       if (instance.status case final value?) 'status': value,
       if (instance.partnerName case final value?) 'partner_name': value,
       if (instance.partnerLogoUrl case final value?) 'partner_logo_url': value,
+      if (instance.partners case final value?) 'partners': value,
+      'visibility': _$DropVisibilityEnumMap[instance.visibility]!,
+      'tags': instance.tags,
+      'member_only': instance.memberOnly,
+      'emoji': instance.emoji,
     };
 
 const _$DropTypeEnumMap = {
@@ -63,4 +82,10 @@ const _$ClaimTypeEnumMap = {
   ClaimType.rsvp: 'rsvp',
   ClaimType.qr: 'qr',
   ClaimType.unknown: 'unknown',
+};
+
+const _$DropVisibilityEnumMap = {
+  DropVisibility.public: 'public',
+  DropVisibility.teaser: 'teaser',
+  DropVisibility.hidden: 'hidden',
 };
