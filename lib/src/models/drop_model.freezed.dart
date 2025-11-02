@@ -20,58 +20,41 @@ Drop _$DropFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Drop {
-// IDs
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'partner_id')
-  String get partnerId => throw _privateConstructorUsedError; // Basic
+  String get partnerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  String? get location =>
-      throw _privateConstructorUsedError; // Enums (tolerate unexpected values)
-  @JsonKey(unknownEnumValue: DropType.unknown)
+  String get description => throw _privateConstructorUsedError;
   DropType get type => throw _privateConstructorUsedError;
-  @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-  ClaimType get claimType =>
-      throw _privateConstructorUsedError; // Claim-specific
+  @JsonKey(name: 'claim_type')
+  ClaimType get claimType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'partnership_tag')
+  PartnershipTag get partnershipTag => throw _privateConstructorUsedError;
+  int get stock =>
+      throw _privateConstructorUsedError; // Nullable fields that can be null in the database
   String? get code => throw _privateConstructorUsedError;
-  String? get link =>
-      throw _privateConstructorUsedError; // Optional numeric (null = unlimited/unspecified)
-  int? get stock => throw _privateConstructorUsedError; // Timing
-  @JsonKey(name: 'event_time')
-  DateTime get eventTime => throw _privateConstructorUsedError;
-  @JsonKey(name: 'end_time')
-  DateTime? get endTime => throw _privateConstructorUsedError; // Media
+  String? get link => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
-  String? get imageUrl => throw _privateConstructorUsedError; // Flags / status
-  @JsonKey(name: 'is_public')
-  bool get isPublic => throw _privateConstructorUsedError;
-  String? get status =>
+  String? get imageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'event_id')
+  String? get eventId => throw _privateConstructorUsedError; // Date fields
+  @JsonKey(name: 'start_date')
+  DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_date')
+  DateTime get endDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt =>
+      throw _privateConstructorUsedError; // Boolean flags with defaults
+  bool get public => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_featured')
+  bool get isFeatured =>
       throw _privateConstructorUsedError; // Partner info (view-only; don't send on base-table inserts)
   @JsonKey(name: 'partner_name')
   String? get partnerName => throw _privateConstructorUsedError;
   @JsonKey(name: 'partner_logo_url')
-  String? get partnerLogoUrl =>
-      throw _privateConstructorUsedError; // NEW FIELDS for enhanced UI features
-// Multiple partners support for collaborations
-  List<String>? get partners =>
-      throw _privateConstructorUsedError; // ['TDS Co.', 'NetworkHub', 'StartupMelb']
-// Visibility control for member tiers
-  @JsonKey(unknownEnumValue: DropVisibility.public)
-  DropVisibility get visibility =>
-      throw _privateConstructorUsedError; // Tags for additional metadata and filtering
-  List<String> get tags =>
-      throw _privateConstructorUsedError; // ['Founder-Only', 'Only 5 Left', 'VIP']
-// Member access control
-  @JsonKey(name: 'member_only')
-  bool get memberOnly =>
-      throw _privateConstructorUsedError; // UI state (not from backend - managed locally)
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  bool get claimed =>
-      throw _privateConstructorUsedError; // Emoji representation for visual appeal
-  String get emoji =>
-      throw _privateConstructorUsedError; // Remaining stock display text (computed from stock)
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  String? get stockText => throw _privateConstructorUsedError;
+  String? get partnerLogoUrl => throw _privateConstructorUsedError;
 
   /// Serializes this Drop to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -91,30 +74,23 @@ abstract class $DropCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'partner_id') String partnerId,
       String title,
-      String? description,
-      String? location,
-      @JsonKey(unknownEnumValue: DropType.unknown) DropType type,
-      @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-      ClaimType claimType,
+      String description,
+      DropType type,
+      @JsonKey(name: 'claim_type') ClaimType claimType,
+      @JsonKey(name: 'partnership_tag') PartnershipTag partnershipTag,
+      int stock,
       String? code,
       String? link,
-      int? stock,
-      @JsonKey(name: 'event_time') DateTime eventTime,
-      @JsonKey(name: 'end_time') DateTime? endTime,
       @JsonKey(name: 'image_url') String? imageUrl,
-      @JsonKey(name: 'is_public') bool isPublic,
-      String? status,
+      @JsonKey(name: 'event_id') String? eventId,
+      @JsonKey(name: 'start_date') DateTime startDate,
+      @JsonKey(name: 'end_date') DateTime endDate,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      bool public,
+      @JsonKey(name: 'is_featured') bool isFeatured,
       @JsonKey(name: 'partner_name') String? partnerName,
-      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl,
-      List<String>? partners,
-      @JsonKey(unknownEnumValue: DropVisibility.public)
-      DropVisibility visibility,
-      List<String> tags,
-      @JsonKey(name: 'member_only') bool memberOnly,
-      @JsonKey(includeFromJson: false, includeToJson: false) bool claimed,
-      String emoji,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      String? stockText});
+      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl});
 }
 
 /// @nodoc
@@ -135,27 +111,23 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
     Object? id = null,
     Object? partnerId = null,
     Object? title = null,
-    Object? description = freezed,
-    Object? location = freezed,
+    Object? description = null,
     Object? type = null,
     Object? claimType = null,
+    Object? partnershipTag = null,
+    Object? stock = null,
     Object? code = freezed,
     Object? link = freezed,
-    Object? stock = freezed,
-    Object? eventTime = null,
-    Object? endTime = freezed,
     Object? imageUrl = freezed,
-    Object? isPublic = null,
-    Object? status = freezed,
+    Object? eventId = freezed,
+    Object? startDate = null,
+    Object? endDate = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? public = null,
+    Object? isFeatured = null,
     Object? partnerName = freezed,
     Object? partnerLogoUrl = freezed,
-    Object? partners = freezed,
-    Object? visibility = null,
-    Object? tags = null,
-    Object? memberOnly = null,
-    Object? claimed = null,
-    Object? emoji = null,
-    Object? stockText = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -170,14 +142,10 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -186,6 +154,14 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
           ? _value.claimType
           : claimType // ignore: cast_nullable_to_non_nullable
               as ClaimType,
+      partnershipTag: null == partnershipTag
+          ? _value.partnershipTag
+          : partnershipTag // ignore: cast_nullable_to_non_nullable
+              as PartnershipTag,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -194,30 +170,38 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String?,
-      stock: freezed == stock
-          ? _value.stock
-          : stock // ignore: cast_nullable_to_non_nullable
-              as int?,
-      eventTime: null == eventTime
-          ? _value.eventTime
-          : eventTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPublic: null == isPublic
-          ? _value.isPublic
-          : isPublic // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
               as String?,
+      startDate: null == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      public: null == public
+          ? _value.public
+          : public // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeatured: null == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool,
       partnerName: freezed == partnerName
           ? _value.partnerName
           : partnerName // ignore: cast_nullable_to_non_nullable
@@ -225,34 +209,6 @@ class _$DropCopyWithImpl<$Res, $Val extends Drop>
       partnerLogoUrl: freezed == partnerLogoUrl
           ? _value.partnerLogoUrl
           : partnerLogoUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      partners: freezed == partners
-          ? _value.partners
-          : partners // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      visibility: null == visibility
-          ? _value.visibility
-          : visibility // ignore: cast_nullable_to_non_nullable
-              as DropVisibility,
-      tags: null == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      memberOnly: null == memberOnly
-          ? _value.memberOnly
-          : memberOnly // ignore: cast_nullable_to_non_nullable
-              as bool,
-      claimed: null == claimed
-          ? _value.claimed
-          : claimed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      emoji: null == emoji
-          ? _value.emoji
-          : emoji // ignore: cast_nullable_to_non_nullable
-              as String,
-      stockText: freezed == stockText
-          ? _value.stockText
-          : stockText // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -269,30 +225,23 @@ abstract class _$$DropImplCopyWith<$Res> implements $DropCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'partner_id') String partnerId,
       String title,
-      String? description,
-      String? location,
-      @JsonKey(unknownEnumValue: DropType.unknown) DropType type,
-      @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-      ClaimType claimType,
+      String description,
+      DropType type,
+      @JsonKey(name: 'claim_type') ClaimType claimType,
+      @JsonKey(name: 'partnership_tag') PartnershipTag partnershipTag,
+      int stock,
       String? code,
       String? link,
-      int? stock,
-      @JsonKey(name: 'event_time') DateTime eventTime,
-      @JsonKey(name: 'end_time') DateTime? endTime,
       @JsonKey(name: 'image_url') String? imageUrl,
-      @JsonKey(name: 'is_public') bool isPublic,
-      String? status,
+      @JsonKey(name: 'event_id') String? eventId,
+      @JsonKey(name: 'start_date') DateTime startDate,
+      @JsonKey(name: 'end_date') DateTime endDate,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      bool public,
+      @JsonKey(name: 'is_featured') bool isFeatured,
       @JsonKey(name: 'partner_name') String? partnerName,
-      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl,
-      List<String>? partners,
-      @JsonKey(unknownEnumValue: DropVisibility.public)
-      DropVisibility visibility,
-      List<String> tags,
-      @JsonKey(name: 'member_only') bool memberOnly,
-      @JsonKey(includeFromJson: false, includeToJson: false) bool claimed,
-      String emoji,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      String? stockText});
+      @JsonKey(name: 'partner_logo_url') String? partnerLogoUrl});
 }
 
 /// @nodoc
@@ -310,27 +259,23 @@ class __$$DropImplCopyWithImpl<$Res>
     Object? id = null,
     Object? partnerId = null,
     Object? title = null,
-    Object? description = freezed,
-    Object? location = freezed,
+    Object? description = null,
     Object? type = null,
     Object? claimType = null,
+    Object? partnershipTag = null,
+    Object? stock = null,
     Object? code = freezed,
     Object? link = freezed,
-    Object? stock = freezed,
-    Object? eventTime = null,
-    Object? endTime = freezed,
     Object? imageUrl = freezed,
-    Object? isPublic = null,
-    Object? status = freezed,
+    Object? eventId = freezed,
+    Object? startDate = null,
+    Object? endDate = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? public = null,
+    Object? isFeatured = null,
     Object? partnerName = freezed,
     Object? partnerLogoUrl = freezed,
-    Object? partners = freezed,
-    Object? visibility = null,
-    Object? tags = null,
-    Object? memberOnly = null,
-    Object? claimed = null,
-    Object? emoji = null,
-    Object? stockText = freezed,
   }) {
     return _then(_$DropImpl(
       id: null == id
@@ -345,14 +290,10 @@ class __$$DropImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -361,6 +302,14 @@ class __$$DropImplCopyWithImpl<$Res>
           ? _value.claimType
           : claimType // ignore: cast_nullable_to_non_nullable
               as ClaimType,
+      partnershipTag: null == partnershipTag
+          ? _value.partnershipTag
+          : partnershipTag // ignore: cast_nullable_to_non_nullable
+              as PartnershipTag,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -369,30 +318,38 @@ class __$$DropImplCopyWithImpl<$Res>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String?,
-      stock: freezed == stock
-          ? _value.stock
-          : stock // ignore: cast_nullable_to_non_nullable
-              as int?,
-      eventTime: null == eventTime
-          ? _value.eventTime
-          : eventTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPublic: null == isPublic
-          ? _value.isPublic
-          : isPublic // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
               as String?,
+      startDate: null == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      public: null == public
+          ? _value.public
+          : public // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeatured: null == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool,
       partnerName: freezed == partnerName
           ? _value.partnerName
           : partnerName // ignore: cast_nullable_to_non_nullable
@@ -401,122 +358,88 @@ class __$$DropImplCopyWithImpl<$Res>
           ? _value.partnerLogoUrl
           : partnerLogoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      partners: freezed == partners
-          ? _value._partners
-          : partners // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      visibility: null == visibility
-          ? _value.visibility
-          : visibility // ignore: cast_nullable_to_non_nullable
-              as DropVisibility,
-      tags: null == tags
-          ? _value._tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      memberOnly: null == memberOnly
-          ? _value.memberOnly
-          : memberOnly // ignore: cast_nullable_to_non_nullable
-              as bool,
-      claimed: null == claimed
-          ? _value.claimed
-          : claimed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      emoji: null == emoji
-          ? _value.emoji
-          : emoji // ignore: cast_nullable_to_non_nullable
-              as String,
-      stockText: freezed == stockText
-          ? _value.stockText
-          : stockText // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
-class _$DropImpl extends _Drop {
+@JsonSerializable()
+class _$DropImpl implements _Drop {
   const _$DropImpl(
       {required this.id,
       @JsonKey(name: 'partner_id') required this.partnerId,
       required this.title,
-      this.description,
-      this.location,
-      @JsonKey(unknownEnumValue: DropType.unknown) required this.type,
-      @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-      required this.claimType,
+      required this.description,
+      required this.type,
+      @JsonKey(name: 'claim_type') required this.claimType,
+      @JsonKey(name: 'partnership_tag') required this.partnershipTag,
+      required this.stock,
       this.code,
       this.link,
-      this.stock,
-      @JsonKey(name: 'event_time') required this.eventTime,
-      @JsonKey(name: 'end_time') this.endTime,
       @JsonKey(name: 'image_url') this.imageUrl,
-      @JsonKey(name: 'is_public') this.isPublic = false,
-      this.status,
+      @JsonKey(name: 'event_id') this.eventId,
+      @JsonKey(name: 'start_date') required this.startDate,
+      @JsonKey(name: 'end_date') required this.endDate,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      this.public = false,
+      @JsonKey(name: 'is_featured') this.isFeatured = false,
       @JsonKey(name: 'partner_name') this.partnerName,
-      @JsonKey(name: 'partner_logo_url') this.partnerLogoUrl,
-      final List<String>? partners,
-      @JsonKey(unknownEnumValue: DropVisibility.public)
-      this.visibility = DropVisibility.public,
-      final List<String> tags = const <String>[],
-      @JsonKey(name: 'member_only') this.memberOnly = false,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      this.claimed = false,
-      this.emoji = '🔥',
-      @JsonKey(includeFromJson: false, includeToJson: false) this.stockText})
-      : _partners = partners,
-        _tags = tags,
-        super._();
+      @JsonKey(name: 'partner_logo_url') this.partnerLogoUrl});
 
   factory _$DropImpl.fromJson(Map<String, dynamic> json) =>
       _$$DropImplFromJson(json);
 
-// IDs
   @override
   final String id;
   @override
   @JsonKey(name: 'partner_id')
   final String partnerId;
-// Basic
   @override
   final String title;
   @override
-  final String? description;
+  final String description;
   @override
-  final String? location;
-// Enums (tolerate unexpected values)
-  @override
-  @JsonKey(unknownEnumValue: DropType.unknown)
   final DropType type;
   @override
-  @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
+  @JsonKey(name: 'claim_type')
   final ClaimType claimType;
-// Claim-specific
+  @override
+  @JsonKey(name: 'partnership_tag')
+  final PartnershipTag partnershipTag;
+  @override
+  final int stock;
+// Nullable fields that can be null in the database
   @override
   final String? code;
   @override
   final String? link;
-// Optional numeric (null = unlimited/unspecified)
-  @override
-  final int? stock;
-// Timing
-  @override
-  @JsonKey(name: 'event_time')
-  final DateTime eventTime;
-  @override
-  @JsonKey(name: 'end_time')
-  final DateTime? endTime;
-// Media
   @override
   @JsonKey(name: 'image_url')
   final String? imageUrl;
-// Flags / status
   @override
-  @JsonKey(name: 'is_public')
-  final bool isPublic;
+  @JsonKey(name: 'event_id')
+  final String? eventId;
+// Date fields
   @override
-  final String? status;
+  @JsonKey(name: 'start_date')
+  final DateTime startDate;
+  @override
+  @JsonKey(name: 'end_date')
+  final DateTime endDate;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+// Boolean flags with defaults
+  @override
+  @JsonKey()
+  final bool public;
+  @override
+  @JsonKey(name: 'is_featured')
+  final bool isFeatured;
 // Partner info (view-only; don't send on base-table inserts)
   @override
   @JsonKey(name: 'partner_name')
@@ -524,57 +447,10 @@ class _$DropImpl extends _Drop {
   @override
   @JsonKey(name: 'partner_logo_url')
   final String? partnerLogoUrl;
-// NEW FIELDS for enhanced UI features
-// Multiple partners support for collaborations
-  final List<String>? _partners;
-// NEW FIELDS for enhanced UI features
-// Multiple partners support for collaborations
-  @override
-  List<String>? get partners {
-    final value = _partners;
-    if (value == null) return null;
-    if (_partners is EqualUnmodifiableListView) return _partners;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-// ['TDS Co.', 'NetworkHub', 'StartupMelb']
-// Visibility control for member tiers
-  @override
-  @JsonKey(unknownEnumValue: DropVisibility.public)
-  final DropVisibility visibility;
-// Tags for additional metadata and filtering
-  final List<String> _tags;
-// Tags for additional metadata and filtering
-  @override
-  @JsonKey()
-  List<String> get tags {
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_tags);
-  }
-
-// ['Founder-Only', 'Only 5 Left', 'VIP']
-// Member access control
-  @override
-  @JsonKey(name: 'member_only')
-  final bool memberOnly;
-// UI state (not from backend - managed locally)
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  final bool claimed;
-// Emoji representation for visual appeal
-  @override
-  @JsonKey()
-  final String emoji;
-// Remaining stock display text (computed from stock)
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  final String? stockText;
 
   @override
   String toString() {
-    return 'Drop(id: $id, partnerId: $partnerId, title: $title, description: $description, location: $location, type: $type, claimType: $claimType, code: $code, link: $link, stock: $stock, eventTime: $eventTime, endTime: $endTime, imageUrl: $imageUrl, isPublic: $isPublic, status: $status, partnerName: $partnerName, partnerLogoUrl: $partnerLogoUrl, partners: $partners, visibility: $visibility, tags: $tags, memberOnly: $memberOnly, claimed: $claimed, emoji: $emoji, stockText: $stockText)';
+    return 'Drop(id: $id, partnerId: $partnerId, title: $title, description: $description, type: $type, claimType: $claimType, partnershipTag: $partnershipTag, stock: $stock, code: $code, link: $link, imageUrl: $imageUrl, eventId: $eventId, startDate: $startDate, endDate: $endDate, createdAt: $createdAt, updatedAt: $updatedAt, public: $public, isFeatured: $isFeatured, partnerName: $partnerName, partnerLogoUrl: $partnerLogoUrl)';
   }
 
   @override
@@ -588,36 +464,31 @@ class _$DropImpl extends _Drop {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.claimType, claimType) ||
                 other.claimType == claimType) &&
+            (identical(other.partnershipTag, partnershipTag) ||
+                other.partnershipTag == partnershipTag) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.link, link) || other.link == link) &&
-            (identical(other.stock, stock) || other.stock == stock) &&
-            (identical(other.eventTime, eventTime) ||
-                other.eventTime == eventTime) &&
-            (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.isPublic, isPublic) ||
-                other.isPublic == isPublic) &&
-            (identical(other.status, status) || other.status == status) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.public, public) || other.public == public) &&
+            (identical(other.isFeatured, isFeatured) ||
+                other.isFeatured == isFeatured) &&
             (identical(other.partnerName, partnerName) ||
                 other.partnerName == partnerName) &&
             (identical(other.partnerLogoUrl, partnerLogoUrl) ||
-                other.partnerLogoUrl == partnerLogoUrl) &&
-            const DeepCollectionEquality().equals(other._partners, _partners) &&
-            (identical(other.visibility, visibility) ||
-                other.visibility == visibility) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.memberOnly, memberOnly) ||
-                other.memberOnly == memberOnly) &&
-            (identical(other.claimed, claimed) || other.claimed == claimed) &&
-            (identical(other.emoji, emoji) || other.emoji == emoji) &&
-            (identical(other.stockText, stockText) ||
-                other.stockText == stockText));
+                other.partnerLogoUrl == partnerLogoUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -628,26 +499,22 @@ class _$DropImpl extends _Drop {
         partnerId,
         title,
         description,
-        location,
         type,
         claimType,
+        partnershipTag,
+        stock,
         code,
         link,
-        stock,
-        eventTime,
-        endTime,
         imageUrl,
-        isPublic,
-        status,
+        eventId,
+        startDate,
+        endDate,
+        createdAt,
+        updatedAt,
+        public,
+        isFeatured,
         partnerName,
-        partnerLogoUrl,
-        const DeepCollectionEquality().hash(_partners),
-        visibility,
-        const DeepCollectionEquality().hash(_tags),
-        memberOnly,
-        claimed,
-        emoji,
-        stockText
+        partnerLogoUrl
       ]);
 
   /// Create a copy of Drop
@@ -666,105 +533,86 @@ class _$DropImpl extends _Drop {
   }
 }
 
-abstract class _Drop extends Drop {
+abstract class _Drop implements Drop {
   const factory _Drop(
-      {required final String id,
-      @JsonKey(name: 'partner_id') required final String partnerId,
-      required final String title,
-      final String? description,
-      final String? location,
-      @JsonKey(unknownEnumValue: DropType.unknown) required final DropType type,
-      @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-      required final ClaimType claimType,
-      final String? code,
-      final String? link,
-      final int? stock,
-      @JsonKey(name: 'event_time') required final DateTime eventTime,
-      @JsonKey(name: 'end_time') final DateTime? endTime,
-      @JsonKey(name: 'image_url') final String? imageUrl,
-      @JsonKey(name: 'is_public') final bool isPublic,
-      final String? status,
-      @JsonKey(name: 'partner_name') final String? partnerName,
-      @JsonKey(name: 'partner_logo_url') final String? partnerLogoUrl,
-      final List<String>? partners,
-      @JsonKey(unknownEnumValue: DropVisibility.public)
-      final DropVisibility visibility,
-      final List<String> tags,
-      @JsonKey(name: 'member_only') final bool memberOnly,
-      @JsonKey(includeFromJson: false, includeToJson: false) final bool claimed,
-      final String emoji,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      final String? stockText}) = _$DropImpl;
-  const _Drop._() : super._();
+          {required final String id,
+          @JsonKey(name: 'partner_id') required final String partnerId,
+          required final String title,
+          required final String description,
+          required final DropType type,
+          @JsonKey(name: 'claim_type') required final ClaimType claimType,
+          @JsonKey(name: 'partnership_tag')
+          required final PartnershipTag partnershipTag,
+          required final int stock,
+          final String? code,
+          final String? link,
+          @JsonKey(name: 'image_url') final String? imageUrl,
+          @JsonKey(name: 'event_id') final String? eventId,
+          @JsonKey(name: 'start_date') required final DateTime startDate,
+          @JsonKey(name: 'end_date') required final DateTime endDate,
+          @JsonKey(name: 'created_at') final DateTime? createdAt,
+          @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+          final bool public,
+          @JsonKey(name: 'is_featured') final bool isFeatured,
+          @JsonKey(name: 'partner_name') final String? partnerName,
+          @JsonKey(name: 'partner_logo_url') final String? partnerLogoUrl}) =
+      _$DropImpl;
 
   factory _Drop.fromJson(Map<String, dynamic> json) = _$DropImpl.fromJson;
 
-// IDs
   @override
   String get id;
   @override
   @JsonKey(name: 'partner_id')
-  String get partnerId; // Basic
+  String get partnerId;
   @override
   String get title;
   @override
-  String? get description;
+  String get description;
   @override
-  String? get location; // Enums (tolerate unexpected values)
-  @override
-  @JsonKey(unknownEnumValue: DropType.unknown)
   DropType get type;
   @override
-  @JsonKey(name: 'claim_type', unknownEnumValue: ClaimType.unknown)
-  ClaimType get claimType; // Claim-specific
+  @JsonKey(name: 'claim_type')
+  ClaimType get claimType;
+  @override
+  @JsonKey(name: 'partnership_tag')
+  PartnershipTag get partnershipTag;
+  @override
+  int get stock; // Nullable fields that can be null in the database
   @override
   String? get code;
   @override
-  String? get link; // Optional numeric (null = unlimited/unspecified)
-  @override
-  int? get stock; // Timing
-  @override
-  @JsonKey(name: 'event_time')
-  DateTime get eventTime;
-  @override
-  @JsonKey(name: 'end_time')
-  DateTime? get endTime; // Media
+  String? get link;
   @override
   @JsonKey(name: 'image_url')
-  String? get imageUrl; // Flags / status
+  String? get imageUrl;
   @override
-  @JsonKey(name: 'is_public')
-  bool get isPublic;
+  @JsonKey(name: 'event_id')
+  String? get eventId; // Date fields
   @override
-  String?
-      get status; // Partner info (view-only; don't send on base-table inserts)
+  @JsonKey(name: 'start_date')
+  DateTime get startDate;
+  @override
+  @JsonKey(name: 'end_date')
+  DateTime get endDate;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt; // Boolean flags with defaults
+  @override
+  bool get public;
+  @override
+  @JsonKey(name: 'is_featured')
+  bool
+      get isFeatured; // Partner info (view-only; don't send on base-table inserts)
   @override
   @JsonKey(name: 'partner_name')
   String? get partnerName;
   @override
   @JsonKey(name: 'partner_logo_url')
-  String? get partnerLogoUrl; // NEW FIELDS for enhanced UI features
-// Multiple partners support for collaborations
-  @override
-  List<String>? get partners; // ['TDS Co.', 'NetworkHub', 'StartupMelb']
-// Visibility control for member tiers
-  @override
-  @JsonKey(unknownEnumValue: DropVisibility.public)
-  DropVisibility get visibility; // Tags for additional metadata and filtering
-  @override
-  List<String> get tags; // ['Founder-Only', 'Only 5 Left', 'VIP']
-// Member access control
-  @override
-  @JsonKey(name: 'member_only')
-  bool get memberOnly; // UI state (not from backend - managed locally)
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  bool get claimed; // Emoji representation for visual appeal
-  @override
-  String get emoji; // Remaining stock display text (computed from stock)
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  String? get stockText;
+  String? get partnerLogoUrl;
 
   /// Create a copy of Drop
   /// with the given fields replaced by the non-null parameter values.
